@@ -68,3 +68,13 @@ input[type="range"] {
     pointer-events: none; /* This ensures it doesn't interfere with clicks */
 }
   
+
+.action-buttons button {
+    background-color: #43b581; /* A different color (green) to distinguish actions */
+    flex: 1; /* Makes them equal width */
+    max-width: 150px;
+}
+
+.action-buttons button:hover {
+    background-color: #3ca374;
+}

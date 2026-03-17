@@ -535,3 +535,56 @@ function startNewMaze() {
 
 // Initial call to start the first maze on page load
 window.onload = startNewMaze;
+
+function downloadMaze() {
+    const link = document.createElement('a');
+    link.download = 'word-maze.png';
+    // Ensure we capture the full resolution of the canvas
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+}
+
+function printMaze() {
+    const dataUrl = canvas.toDataURL("image/png");
+    const printWindow = window.open('', '_blank');
+    
+    printWindow.document.open();
+    printWindow.document.write(`
+        <html>
+            <head>
+                <title>Print Maze</title>
+                <style>
+                    /* This block only affects the printer */
+                    @media print {
+                        body { margin: 0; }
+                        img { 
+                            display: block;
+                            width: 100%;
+                            height: auto;
+                            max-height: 100%;
+                            object-fit: contain;
+                        }
+                    }
+                    /* General styling for the temp window */
+                    body { 
+                        margin: 0; 
+                        display: flex; 
+                        justify-content: center; 
+                        align-items: center; 
+                        min-height: 100vh;
+                        background-color: white;
+                    }
+                    img { 
+                        max-width: 95vw; 
+                        max-height: 95vh; 
+                        object-fit: contain; 
+                    }
+                </style>
+            </head>
+            <body onload="setTimeout(() => { window.print(); window.close(); }, 300);">
+                <img src="${dataUrl}" />
+            </body>
+        </html>
+    `);
+    printWindow.document.close();
+}

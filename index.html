@@ -21,7 +21,12 @@
     <label for="sizeSlider" style="color: #e0e0e0; font-size: 14px;">Cell Size:</label>
     <input type="range" id="sizeSlider" min="5" max="30" value="12" onchange="startNewMaze()">
     </div>
+<div class="action-buttons" style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
+    <button onclick="downloadMaze()">Download PNG</button>
+    <button onclick="printMaze()">Print Maze</button>
 </div>
+</div>
+
 
     <script src="script.js"></script>
 </body>
