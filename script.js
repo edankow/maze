@@ -167,34 +167,40 @@ function startNewMaze() {
             }
         }
 
-        // --- NEW: Internal Vertical Bridge for 'i' and 'j' ---
-        if (isIorJ) {
-            const centerX = obj.x + (obj.width / 2);
-            const snappedX = Math.floor(centerX / size) * size;
-            let firstPixelY = -1;
-            let gapStartY = -1;
-            let gapEndY = -1;
+        // --- NEW: Internal Vertical Bridge for 'i', 'j', 'ה', and 'ק' ---
+const isHebrewGapLetter = obj.char === 'ה' || obj.char === 'ק';
 
-            // Scan vertically to find the gap between dot and stem
-            for (let y = 0; y < maskCanvas.height; y++) {
-                const alpha = maskCtx.getImageData(snappedX + (size / 2), y, 1, 1).data[3];
-                if (alpha > 50) {
-                    if (firstPixelY === -1) firstPixelY = y;
-                    if (gapStartY !== -1 && gapEndY === -1) {
-                        gapEndY = y;
-                        break;
-                    }
-                } else if (firstPixelY !== -1 && gapStartY === -1) {
-                    gapStartY = y;
-                }
-            }
+if (isIorJ || isHebrewGapLetter) {
+    // For Hebrew letters, we may want to scan slightly to the left of center 
+    // to catch the gap for the 'leg'.
+    const scanOffset = isHebrewGapLetter ? (obj.width * 0.25) : (obj.width / 2);
+    const centerX = obj.x + scanOffset;
+    const snappedX = Math.floor(centerX / size) * size;
+    
+    let firstPixelY = -1;
+    let gapStartY = -1;
+    let gapEndY = -1;
 
-            // If a gap was found, fill it with a vertical bridge
-            if (gapStartY !== -1 && gapEndY !== -1) {
-                maskCtx.fillStyle = "black";
-                maskCtx.fillRect(snappedX, gapStartY, size, gapEndY - gapStartY);
+    // Scan vertically to find the gap
+    for (let y = 0; y < maskCanvas.height; y++) {
+        const alpha = maskCtx.getImageData(snappedX + (size / 2), y, 1, 1).data[3];
+        if (alpha > 50) {
+            if (firstPixelY === -1) firstPixelY = y;
+            if (gapStartY !== -1 && gapEndY === -1) {
+                gapEndY = y;
+                break;
             }
+        } else if (firstPixelY !== -1 && gapStartY === -1) {
+            gapStartY = y;
         }
+    }
+
+    // If a gap was found, fill it with a vertical bridge
+    if (gapStartY !== -1 && gapEndY !== -1) {
+        maskCtx.fillStyle = "black";
+        maskCtx.fillRect(snappedX, gapStartY, size, gapEndY - gapStartY);
+    }
+}
     });
 
     // Calculate dimensions
