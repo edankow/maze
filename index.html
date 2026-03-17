@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Maze Generator</title>
+   <link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="bsd">בס"ד</div>
+    <div class="controls">
+    <h2>Word Maze Generator</h2>
+    <p>Enter a word to generate a maze inside the shape:</p>
+    <div class="input-group">
+        <input type="text" id="mazeWord" placeholder="Enter word..." value="MAZE" autofocus onkeydown="if(event.key === 'Enter') startNewMaze()">
+        <button onclick="startNewMaze()">Generate</button>
+	<br>
+    <label for="speedSlider" style="color: #e0e0e0; font-size: 14px;">Speed:</label>
+    <input type="range" id="speedSlider" min="1" max="100" value="50">
+<br>
+    <label for="sizeSlider" style="color: #e0e0e0; font-size: 14px;">Cell Size:</label>
+    <input type="range" id="sizeSlider" min="5" max="30" value="12" onchange="startNewMaze()">
+    </div>
+</div>
+
+    <script src="script.js"></script>
+</body>
+</html>

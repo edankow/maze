@@ -1,0 +1,70 @@
+body {
+    background-color: #2c2f33;
+    display: flex;
+    flex-direction: column; /* Stack controls and canvas vertically */
+    justify-content: flex-start; /* Start from the top */
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden; /* Prevent page scrollbars */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.controls {
+    position: relative; /* Change from absolute */
+    margin-bottom: 20px; /* Space between input and maze */
+    color: #e0e0e0;
+    text-align: center;
+    flex-shrink: 0; /* Don't let the controls get squashed */
+}
+
+canvas {
+    max-width: 100%;
+    max-height: calc(100vh - 200px); /* Leave room for the header/input */
+    object-fit: contain;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.input-group {
+    margin-top: 10px;
+}
+
+input {
+    padding: 8px;
+    border-radius: 4px;
+    border: none;
+    font-size: 16px;
+}
+
+button {
+    padding: 8px 15px;
+    border-radius: 4px;
+    border: none;
+    background-color: #7289da;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #5b6eae;
+}
+
+input[type="range"] {
+    margin-top: 15px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.bsd {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #e0e0e0;
+    font-size: 14px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    pointer-events: none; /* This ensures it doesn't interfere with clicks */
+}
+  
